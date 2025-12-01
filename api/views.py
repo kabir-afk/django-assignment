@@ -11,6 +11,11 @@ class Banks(APIView):
         banks = Bank.objects.all()
         serializer = BankSerializer(banks ,many=True)
         return Response(serializer.data,status=status.HTTP_200_OK)
+class Bank_details(APIView):
+    def get(self,req,id):
+        banks = Bank.objects.get(id=id)
+        serializer = BankSerializer(banks)
+        return Response(serializer.data,status=status.HTTP_200_OK)
 class Specific_bank_branches(generics.ListAPIView):
     pagination_class = PageNumberPagination
     serializer_class = BranchSerializer
