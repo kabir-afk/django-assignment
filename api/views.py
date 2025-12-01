@@ -6,29 +6,29 @@ from .models import Bank, Branch
 from .serializers import BankSerializer,BranchSerializer
 
 # Create your views here.
-class Banks(APIView):
+class BankListView(APIView):
     def get(self,req):
         banks = Bank.objects.all()
         serializer = BankSerializer(banks ,many=True)
         return Response(serializer.data,status=status.HTTP_200_OK)
-class Bank_details(APIView):
+class BankDetailView(APIView):
     def get(self,req,id):
         banks = Bank.objects.get(id=id)
         serializer = BankSerializer(banks)
         return Response(serializer.data,status=status.HTTP_200_OK)
-class Specific_bank_branches(generics.ListAPIView):
+class BankBranchListView(generics.ListAPIView):
     pagination_class = PageNumberPagination
     serializer_class = BranchSerializer
 
     def get_queryset(self):
         bank_id = self.kwargs["id"]
         return Branch.objects.filter(bank_name=bank_id)
-class All_bank_branches(generics.ListAPIView):
+class BranchListView(generics.ListAPIView):
     pagination_class = PageNumberPagination
     queryset = Branch.objects.order_by('pk')
     serializer_class = BranchSerializer
 
-class Branch_by_IFSC_code(APIView):
+class BranchDetailView(APIView):
     def get(self, req,ifsc):
         branches = Branch.objects.get(ifsc=ifsc)
         serializer = BranchSerializer(branches)
