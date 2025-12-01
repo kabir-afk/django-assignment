@@ -1,6 +1,12 @@
-from django.http import HttpResponse
+from rest_framework import status
+from rest_framework.response import Response
+from rest_framework.views import APIView
+from .models import Bank, Branch
+from .serializers import BankSerializer,BranchSerializer
 
 # Create your views here.
-
-def something(req):
-    return HttpResponse("this is thw api page")
+class Banks(APIView):
+    def get(self,req):
+        banks = Bank.objects.all()
+        serializer = BankSerializer(banks ,many=True)
+        return Response(serializer.data,status=status.HTTP_200_OK)
