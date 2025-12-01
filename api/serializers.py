@@ -7,7 +7,7 @@ class BankSerializer(serializers.ModelSerializer):
         fields = "__all__"
 
 class BranchSerializer(serializers.ModelSerializer):
-    branch = BankSerializer(many=True,read_only=True)
+    bank_name = serializers.CharField(source='bank_name.name', read_only=True)
     class Meta:
         model = Branch
         fields = "__all__"
