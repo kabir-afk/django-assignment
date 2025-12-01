@@ -11,11 +11,18 @@ class Banks(APIView):
         banks = Bank.objects.all()
         serializer = BankSerializer(banks ,many=True)
         return Response(serializer.data,status=status.HTTP_200_OK)
+class Specific_bank_branches(generics.ListAPIView):
+    pagination_class = PageNumberPagination
+    serializer_class = BranchSerializer
+
+    def get_queryset(self):
+        bank_id = self.kwargs["id"]
+        return Branch.objects.filter(bank_name=bank_id)
 class All_bank_branches(generics.ListAPIView):
     pagination_class = PageNumberPagination
     queryset = Branch.objects.order_by('pk')
     serializer_class = BranchSerializer
-    
+
 class Branch_by_IFSC_code(APIView):
     def get(self, req,ifsc):
         branches = Branch.objects.get(ifsc=ifsc)
