@@ -4,7 +4,7 @@ from rest_framework.response import Response
 from rest_framework.views import APIView
 from django_filters.rest_framework import DjangoFilterBackend
 from .models import Bank, Branch
-from .serializers import BankSerializer,BranchSerializer
+from .serializers import BankSerializer,BranchSerializer,CitySerializer , StateSerializer
 from .utils import BranchFilter
 
 # Create your views here.
@@ -27,6 +27,18 @@ class BankBranchListView(generics.ListAPIView):
     def get_queryset(self):
         bank_id = self.kwargs["id"]
         return Branch.objects.filter(bank=bank_id).order_by('pk')
+class BankCitiesListView(generics.ListAPIView):
+    serializer_class = CitySerializer
+
+    def get_queryset(self):
+        bank_id = self.kwargs["id"]
+        return Branch.objects.filter(bank=bank_id).values('city').distinct().order_by('city')
+class BankStateListView(generics.ListAPIView):
+    serializer_class = StateSerializer
+
+    def get_queryset(self):
+        bank_id = self.kwargs["id"]
+        return Branch.objects.filter(bank=bank_id).values('state').distinct().order_by('state')
     
 class BranchListView(generics.ListAPIView):
     queryset = Branch.objects.order_by('pk')
