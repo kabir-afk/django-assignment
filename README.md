@@ -45,6 +45,21 @@ python manage.py runserver
 python manage.py createsuperuser
 ```
 
+**Environment Configuration**
+
+Create a `.env` file in the `banks/` directory with the following variables. You can customize these based on your setup:
+
+```
+ENVIRONMENT=development
+SECRET_KEY=<your-secret-key>
+POSTGRES_USER=postgres
+POSTGRES_PASSWORD=<your-password>
+POSTGRES_HOST=localhost
+POSTGRES_PORT=5432 (This project used 5433)
+```
+
+Make sure the `.env` file is added to `.gitignore` to avoid committing sensitive credentials to version control.
+
 **Project Structure**
 
 - `manage.py` — Django management script
