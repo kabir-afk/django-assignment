@@ -1,4 +1,4 @@
-from django.shortcuts import get_object_or_404
+from django.shortcuts import get_object_or_404,get_list_or_404
 from rest_framework import status , generics , filters
 from rest_framework.response import Response
 from rest_framework.views import APIView
@@ -32,14 +32,15 @@ class BankCitiesListView(generics.ListAPIView):
 
     def get_queryset(self):
         bank_id = self.kwargs["id"]
-        return Branch.objects.filter(bank=bank_id).values('city').distinct().order_by('city')
+        cities = get_list_or_404(Branch.objects.filter(bank=bank_id).values('city').distinct().order_by('city'))
+        return cities
 class BankStateListView(generics.ListAPIView):
     serializer_class = StateSerializer
 
     def get_queryset(self):
         bank_id = self.kwargs["id"]
-        return Branch.objects.filter(bank=bank_id).values('state').distinct().order_by('state')
-    
+        states = get_list_or_404(Branch.objects.filter(bank=bank_id).values('state').distinct().order_by('state'))
+        return states
 class BranchListView(generics.ListAPIView):
     queryset = Branch.objects.order_by('pk')
     serializer_class = BranchSerializer
