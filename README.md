@@ -1,6 +1,6 @@
 # django-assignment
 
-A small Django project with two apps: `api` and `banks`.
+A small Django project with two apps: `api` and `banks`. Time taken to desig the API : 1.5 days
 
 **Project Overview:**
 
