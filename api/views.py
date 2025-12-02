@@ -1,7 +1,7 @@
+from django.shortcuts import get_object_or_404
 from rest_framework import status , generics , filters
 from rest_framework.response import Response
 from rest_framework.views import APIView
-from rest_framework.pagination import PageNumberPagination
 from django_filters.rest_framework import DjangoFilterBackend
 from .models import Bank, Branch
 from .serializers import BankSerializer,BranchSerializer
@@ -15,7 +15,7 @@ class BankListView(APIView):
         return Response(serializer.data,status=status.HTTP_200_OK)
 class BankDetailView(APIView):
     def get(self,req,id):
-        banks = Bank.objects.get(id=id)
+        banks = get_object_or_404(Bank, id=id)
         serializer = BankSerializer(banks)
         return Response(serializer.data,status=status.HTTP_200_OK)
 class BankBranchListView(generics.ListAPIView):
@@ -37,6 +37,13 @@ class BranchListView(generics.ListAPIView):
 
 class BranchDetailView(APIView):
     def get(self, req,ifsc):
-        branches = Branch.objects.get(ifsc=ifsc)
-        serializer = BranchSerializer(branches)
+        branch = get_object_or_404(Branch, ifsc=ifsc)
+        serializer = BranchSerializer(branch)
         return Response(serializer.data, status=status.HTTP_200_OK)
+
+def BranchValidateView(self, req,ifsc):
+    try:
+        Branch.objects.get(ifsc=ifsc)
+        return Response("Valid IFSC",status=status.HTTP_200_OK)
+    except Branch.DoesNotExist:
+        return Response("Invalid IFSC",status=status.HTTP_404_NOT_FOUND)
