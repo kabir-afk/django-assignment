@@ -8,7 +8,7 @@ class Bank(models.Model):
         db_table = 'banks'
 class Branch(models.Model):
     ifsc = models.CharField(max_length=11,primary_key=True)
-    bank_name = models.ForeignKey(Bank,on_delete=models.CASCADE,related_name="branch",db_column="bank_id")
+    bank = models.ForeignKey(Bank,on_delete=models.CASCADE,related_name="bank",db_column="bank_id")
     branch_name = models.CharField(max_length=74,db_column="branch")
     address = models.CharField(max_length=195)
     city = models.CharField(max_length=50)
