@@ -2,6 +2,12 @@
 
 A small Django project with two apps: `api` and `banks`. Time taken to desig the API : 1.5 days
 
+**Live Deployment:**
+
+- **API URL**: https://django-assignment-y6ia.onrender.com/
+- **Base Endpoint**: https://django-assignment-y6ia.onrender.com/api/v1
+- **Deployed on**: Render
+
 **Project Overview:**
 
 - **`banks/`**: Django project settings, URL configuration and WSGI/ASGI entrypoints.
@@ -52,6 +58,8 @@ Create a `.env` file in the `banks/` directory with the following variables. You
 ```
 ENVIRONMENT=development
 SECRET_KEY=<your-secret-key>
+ALLOWED_HOSTS=localhost,127.0.0.1
+DATABASE_URL=<your-db-url>
 POSTGRES_USER=postgres
 POSTGRES_PASSWORD=<your-password>
 POSTGRES_HOST=localhost
