@@ -11,3 +11,11 @@ class BranchSerializer(serializers.ModelSerializer):
     class Meta:
         model = Branch
         fields = "__all__"
+class CitySerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Branch
+        fields = ["city"]
+class StateSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Branch
+        fields = ["state"]
